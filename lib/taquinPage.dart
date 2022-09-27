@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/taquin.dart';
@@ -14,8 +12,7 @@ class TaquinPage extends StatefulWidget {
 }
 
 class TaquinPageState extends State<TaquinPage> {
-  Taquin _tableau = new Taquin();
-  String _t = '';
+  final Taquin _tableau = new Taquin();
 
   void cliquer(int id) {
     setState(() {
@@ -24,10 +21,17 @@ class TaquinPageState extends State<TaquinPage> {
     });
   }
 
+  Color findColor(id) {
+    Color c = Colors.blue;
+    if (_tableau.getGrille()[id] == 0) {
+      c = Colors.white;
+    }
+    return c;
+  }
+
   void finPartie() {
     setState(() {
       if (_tableau.partieFinie()) {
-        _t = "Partie finie";
         printFin();
       }
     });
@@ -52,7 +56,7 @@ class TaquinPageState extends State<TaquinPage> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Fin de partie!'),
-        content: const Text('Félicition, vous avez réussi !'),
+        content: const Text('Félicitation, vous avez réussi !'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, 'Ok'),
@@ -74,16 +78,63 @@ class TaquinPageState extends State<TaquinPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          const Text('Le jeu du Taquin', style: TextStyle(fontSize: 50)),
+          const Text(
+            'Essayer de remettre les chiffres dans le bon ordre !',
+            style: TextStyle(fontSize: 15),
+          ),
+          const Text(
+            'Utilisez vous le bouton sous la grille pour en générer une nouvelle !',
+            style: TextStyle(fontSize: 15),
+          ),
+          const Padding(padding: EdgeInsets.all(20)),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                  onPressed: () => cliquer(0), child: Text(affichage(0))),
+                onPressed: () => cliquer(0),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => findColor(0)),
+                ),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(0),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
               ElevatedButton(
-                  onPressed: () => cliquer(1), child: Text(affichage(1))),
+                onPressed: () => cliquer(1),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => findColor(1))),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(1),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
               ElevatedButton(
-                  onPressed: () => cliquer(2), child: Text(affichage(2))),
+                onPressed: () => cliquer(2),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => findColor(2))),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(2),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
             ],
           ),
           Row(
@@ -91,11 +142,47 @@ class TaquinPageState extends State<TaquinPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                  onPressed: () => cliquer(3), child: Text(affichage(3))),
+                onPressed: () => cliquer(3),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => findColor(3))),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(3),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
               ElevatedButton(
-                  onPressed: () => cliquer(4), child: Text(affichage(4))),
+                onPressed: () => cliquer(4),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => findColor(4))),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(4),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
               ElevatedButton(
-                  onPressed: () => cliquer(5), child: Text(affichage(5))),
+                onPressed: () => cliquer(5),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => findColor(5))),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(5),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
             ],
           ),
           Row(
@@ -103,16 +190,53 @@ class TaquinPageState extends State<TaquinPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                  onPressed: () => cliquer(6), child: Text(affichage(6))),
+                onPressed: () => cliquer(6),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => findColor(6))),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(6),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
               ElevatedButton(
-                  onPressed: () => cliquer(7), child: Text(affichage(7))),
+                onPressed: () => cliquer(7),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => findColor(7))),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(7),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
               ElevatedButton(
-                  onPressed: () => cliquer(8), child: Text(affichage(8))),
+                onPressed: () => cliquer(8),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                        (states) => findColor(8))),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(affichage(8),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 50)),
+                ),
+              ),
             ],
           ),
+          const Padding(padding: EdgeInsets.all(20)),
           IconButton(
             onPressed: () => reset(),
-            icon: const Icon(Icons.reset_tv),
+            icon: const Icon(Icons.restart_alt_outlined, size: 50),
           ),
         ],
       )),

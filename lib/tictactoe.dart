@@ -10,7 +10,7 @@ class TicTacToe {
     return this._tour;
   }
 
-  void setGrile(nvGrille) {
+  void setGrille(nvGrille) {
     this._grille = nvGrille;
   }
 
@@ -109,5 +109,10 @@ class TicTacToe {
       }
     }
     return gagnant;
+  }
+
+  void resetPlateau() {
+    this._grille = List.generate(9, (index) => " ");
+    this._tour = 0;
   }
 }

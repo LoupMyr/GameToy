@@ -15,11 +15,15 @@ class TicTacToePageState extends State<TicTacToePage> {
   TicTacToe _plateau = new TicTacToe();
   Text _text = const Text('');
 
-  void _cliquer(int id) {
+  void cliquer(int id) {
     setState(() {
       if (!_plateau.partieFinis()) {
         _plateau.placerChoix(id);
         _text = Text("C'est au tour du joueur ${_plateau.tourJoueur()}");
+      }
+      if (_plateau.getTour() == 9 && !_plateau.partieFinis()) {
+        printEgalite();
+        _text = const Text("Egalité");
       }
       if (_plateau.partieFinis()) {
         printGagnant();
@@ -34,6 +38,22 @@ class TicTacToePageState extends State<TicTacToePage> {
       couleur = Colors.orange;
     }
     return couleur;
+  }
+
+  Future<String?> printEgalite() {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Fin de partie!'),
+        content: const Text('Egalité !'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Ok'),
+            child: const Text('Ok'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<String?> printGagnant() {
@@ -56,6 +76,16 @@ class TicTacToePageState extends State<TicTacToePage> {
     return _plateau.getGrille()[id];
   }
 
+  void reset() {
+    _plateau.resetPlateau();
+    setState(() {
+      for (int i = 0; i < _plateau.getGrille().length - 1; i++) {
+        printGrille(i);
+      }
+      _text = Text("C'est au tour du joueur ${_plateau.tourJoueur()}");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,12 +97,18 @@ class TicTacToePageState extends State<TicTacToePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text('Le jeu du TicTacToe', style: TextStyle(fontSize: 50)),
+            const Text(
+              'Aligner 3 croix ou ronds avant votre adversaire pour gagner !',
+              style: TextStyle(fontSize: 15),
+            ),
+            const Padding(padding: EdgeInsets.all(20)),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () => _cliquer(0),
+                  onPressed: () => cliquer(0),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -82,7 +118,7 @@ class TicTacToePageState extends State<TicTacToePage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _cliquer(1),
+                  onPressed: () => cliquer(1),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -92,7 +128,7 @@ class TicTacToePageState extends State<TicTacToePage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _cliquer(2),
+                  onPressed: () => cliquer(2),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -108,7 +144,7 @@ class TicTacToePageState extends State<TicTacToePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () => _cliquer(3),
+                  onPressed: () => cliquer(3),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -118,7 +154,7 @@ class TicTacToePageState extends State<TicTacToePage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _cliquer(4),
+                  onPressed: () => cliquer(4),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -128,7 +164,7 @@ class TicTacToePageState extends State<TicTacToePage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _cliquer(5),
+                  onPressed: () => cliquer(5),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -144,7 +180,7 @@ class TicTacToePageState extends State<TicTacToePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () => _cliquer(6),
+                  onPressed: () => cliquer(6),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -154,7 +190,7 @@ class TicTacToePageState extends State<TicTacToePage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _cliquer(7),
+                  onPressed: () => cliquer(7),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -164,7 +200,7 @@ class TicTacToePageState extends State<TicTacToePage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _cliquer(8),
+                  onPressed: () => cliquer(8),
                   child: Container(
                     width: 100,
                     height: 100,
@@ -177,6 +213,8 @@ class TicTacToePageState extends State<TicTacToePage> {
             ),
             _text,
             const Padding(padding: EdgeInsets.all(20)),
+            IconButton(
+                onPressed: reset, icon: const Icon(Icons.restart_alt_outlined)),
           ],
         ),
       ),
